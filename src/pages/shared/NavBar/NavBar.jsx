@@ -68,7 +68,7 @@ const NavBar = () => {
             <div className="navbar-end">
                 {
                     user ? <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /> :
-                        <a className="btn">Button</a>
+                        <button className="btn"><NavLink to={'/login'}>LogIn</NavLink></button>
                 }
             </div>
         </div>

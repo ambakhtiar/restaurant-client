@@ -1,4 +1,4 @@
-import { BiCalendarEvent } from "react-icons/bi";
+import { BiCalendarEvent, BiPhone } from "react-icons/bi";
 import { FaCalendar, FaHome, FaShoppingCart } from "react-icons/fa";
 import { MdRateReview } from "react-icons/md";
 import { RiAddBoxFill } from "react-icons/ri";
@@ -9,6 +9,8 @@ import useCart from "../hooks/useCart";
 const Dashboard = () => {
     const [cart] = useCart();
 
+    // TODO: get admin value from database
+    const isAdmin = true;
 
     return (
         <div className="flex ">
@@ -22,6 +24,7 @@ const Dashboard = () => {
                     <div className="divider"></div>
                     <li><NavLink to={'/'}><FaHome />Home</NavLink></li>
                     <li><NavLink to={'/order'}><RiAddBoxFill />Order Food</NavLink></li>
+                    <li><NavLink to={'/contact'}><BiPhone />Contact</NavLink></li>
                 </ul>
             </div>
             <div className="flex-1  p-8">

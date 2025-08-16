@@ -5,38 +5,48 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import SocialLogIn from '../../components/SocialLogIn/SocialLogIn';
 
 
 const SignUp = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const captchaRef = useRef(null);
+    // TODO: disable value is true 
     const [disable, setDisable] = useState(false);
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const onSubmit = (data) => {
-        console.log(data);
-
+        // Firebase Authentication User Create
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser);
+                // console.log(loggedUser);
 
-                const userData = {
-                    displayName: data.name,
-                    photoURL: data.photo
-                }
+                // Firebase Update info
+                updateUserProfile({
+                    displayName: data.name, photoURL: data.photo
+                }).then(result => {
+                    const userInfo = {
+                        name: data.name,
+                        email: data.email
+                    }
 
-                updateUserProfile(userData)
-                    .then(result => {
-                        console.log(result);
-                        Swal.fire({
-                            title: "Succesfully account create!",
-                            text: "You clicked the button!",
-                            icon: "success"
-                        });
-                        navigate('/');
-                    })
+                    // Create user entry in DB
+                    axiosPublic.post('/users', userInfo)
+                        .then(res => {
+                            if (res.data.insertedId) {
+                                Swal.fire({
+                                    title: "Succesfully account create!",
+                                    text: "You clicked the button!",
+                                    icon: "success"
+                                });
+                                navigate('/');
+                            }
+                        })
+                })
                     .catch(error => console.log(error));
             })
     }
@@ -114,8 +124,10 @@ const SignUp = () => {
                             <div className="form-control mt-6">
                                 <input disabled={disable} type="submit" className="btn btn-primary w-full" value="Register" />
                             </div>
+
+                            <SocialLogIn></SocialLogIn>
                         </form>
-                        <div className='text-center py-4'>
+                        <div className='text-center pt-2 pb-6'>
                             <p>Already registered? <Link to={'/login'} className='text-blue-700'>Go to log in</Link></p>
                         </div>
                     </div>
