@@ -1,15 +1,20 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProviders/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 
 const LogIn = () => {
     const captchaRef = useRef(null);
-    const [disable, setDisable] = useState(true);
+    const [disable, setDisable] = useState(false);
     const { signIn } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
+    const form = location.state?.form?.pathname || '/';
+    console.log('pathname ', form);
     useEffect(() => {
         loadCaptchaEnginge(6);
     }, [])
@@ -24,6 +29,14 @@ const LogIn = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+
+                Swal.fire({
+                    title: "Succesfully Login!",
+                    icon: "success",
+                    draggable: true
+                });
+
+                navigate(form, { replace: true });
             })
     }
 
@@ -66,8 +79,8 @@ const LogIn = () => {
                                     <span className="label-text">Captcha</span>
                                 </label>
                                 <LoadCanvasTemplate />
-                                <input type="text" ref={captchaRef} name="captcha" placeholder="captcha" className="input input-bordered" required />
-                                <button onClick={handleValidateCaptcha} className='btn btn-outline btn-xs w-full mt-4'>Captcha Submit</button>
+                                <input type="text" ref={captchaRef} name="captcha" placeholder="captcha" className="input input-bordered" />
+                                <button type='button' onClick={handleValidateCaptcha} className='btn btn-outline btn-xs w-full mt-4'>Captcha Submit</button>
                             </div>
                             <div className="form-control mt-6">
                                 <input disabled={disable} type="submit" className="btn btn-primary w-full" value="Login" />

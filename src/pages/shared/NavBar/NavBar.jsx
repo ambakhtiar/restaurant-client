@@ -1,11 +1,34 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProviders/AuthProvider";
+import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../../../hooks/useCart";
 
 const NavBar = () => {
+    const { user, logOut } = useContext(AuthContext);
+    const [cart] = useCart();
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => alert("Log out succesfull"))
+            .catch(error => console.log(error));
+    }
+
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to={'/menu'}>Menu</NavLink></li>
         <li><NavLink to={'/order/salad'}>Order Food</NavLink></li>
-        <li><NavLink to={'/login'}>LogIn</NavLink></li>
+        <li><NavLink to={'/secret'}>Secret</NavLink></li>
+        <li><NavLink to={'/dashboard/cart'}>
+            <button className="flex items-center gap-2"> <FaShoppingCart />
+                <div className="badge badge-secondary p-1.5">+{cart.length}</div>
+            </button>
+        </NavLink></li>
+        {
+            user ?
+                <><button onClick={handleLogOut} className="btn btn-ghost">Log Out</button></>
+                : <li><NavLink to={'/login'}>LogIn</NavLink></li>
+        }
     </>
 
     return (
@@ -43,7 +66,10 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {
+                    user ? <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /> :
+                        <a className="btn">Button</a>
+                }
             </div>
         </div>
     );
