@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import useAuth from "../hooks/useAuth";
 import Loading from "../pages/shared/Loading/Loading";
@@ -18,7 +18,7 @@ const AdminRouter = ({ children }) => {
     }
 
     return (
-        <Navigate to={'/login'} state={{ form: location }} replace></Navigate>
+        <Navigate to={'/'} state={{ form: location }} replace></Navigate>
     );
 };
 

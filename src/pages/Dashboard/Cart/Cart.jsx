@@ -1,12 +1,12 @@
 import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 
 const Cart = () => {
     const [cart, refetch] = useCart();
-    const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
 
     const handleDelete = id => {
         Swal.fire({
@@ -19,7 +19,7 @@ const Cart = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/carts/${id}`)
+                axiosPublic.delete(`/carts/${id}`)
                     .then(res => {
                         console.log(res.data);
                         if (res.data.deletedCount > 0) {

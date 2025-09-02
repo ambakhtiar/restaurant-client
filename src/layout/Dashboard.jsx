@@ -11,9 +11,7 @@ import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
     const [cart] = useCart();
 
-    // TODO: get admin value from database
     const [isAdmin] = useAdmin();
-    console.log(isAdmin);
 
     return (
         <div className="flex ">
@@ -27,12 +25,12 @@ const Dashboard = () => {
                                 <li><NavLink to={'/dashboard/manageItems'}><FaList /> Manage Item</NavLink></li>
                                 <li><NavLink to={'/dashboard/manageBookings'}><FaBookBookmark /> Manage Booking</NavLink></li>
                                 <li><NavLink to={'/dashboard/users'}><FaUser /> All Users</NavLink></li>
+                                <li><NavLink to={'/dashboard/cart'}><FaUtensilSpoon /> My Cart ({cart.length})</NavLink></li>
                                 <div className="divider"></div>
                                 <li><NavLink to={'/'}><FaHome />Home</NavLink></li>
                                 <li><NavLink to={'/order'}><RiAddBoxFill />Order Food</NavLink></li>
                                 <li><NavLink to={'/contact'}><BiPhone />Contact</NavLink></li>
-                            </>
-                            :
+                            </> :
                             <>
                                 <li><NavLink to={'/dashboard/userHome'}><FaHome /> User Home</NavLink></li>
                                 <li><NavLink to={'/dashboard/cart'}><FaUtensilSpoon /> My Cart ({cart.length})</NavLink></li>
@@ -42,7 +40,8 @@ const Dashboard = () => {
                                 <div className="divider"></div>
                                 <li><NavLink to={'/'}><FaHome />Home</NavLink></li>
                                 <li><NavLink to={'/order'}><RiAddBoxFill />Order Food</NavLink></li>
-                                <li><NavLink to={'/contact'}><BiPhone />Contact</NavLink></li></>
+                                <li><NavLink to={'/contact'}><BiPhone />Contact</NavLink></li>
+                            </>
                     }
                 </ul>
             </div>
