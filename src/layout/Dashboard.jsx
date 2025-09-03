@@ -1,5 +1,5 @@
 import { BiCalendarEvent, BiPhone } from "react-icons/bi";
-import { FaCalendar, FaHome, FaList, FaShoppingCart, FaUser, FaUtensilSpoon } from "react-icons/fa";
+import { FaCalendar, FaHistory, FaHome, FaList, FaShoppingCart, FaUser, FaUtensilSpoon } from "react-icons/fa";
 import { MdRateReview } from "react-icons/md";
 import { RiAddBoxFill } from "react-icons/ri";
 import { NavLink, Outlet } from "react-router-dom";
@@ -28,7 +28,7 @@ const Dashboard = () => {
                                 <li><NavLink to={'/dashboard/cart'}><FaUtensilSpoon /> My Cart ({cart.length})</NavLink></li>
                                 <div className="divider"></div>
                                 <li><NavLink to={'/'}><FaHome />Home</NavLink></li>
-                                <li><NavLink to={'/order'}><RiAddBoxFill />Order Food</NavLink></li>
+                                <li><NavLink to={'/order/salad'}><RiAddBoxFill />Order Food</NavLink></li>
                                 <li><NavLink to={'/contact'}><BiPhone />Contact</NavLink></li>
                             </> :
                             <>
@@ -37,9 +37,10 @@ const Dashboard = () => {
                                 <li><NavLink to={'/dashboard/reservation'}><FaCalendar /> Reservation</NavLink></li>
                                 <li><NavLink to={'/dashboard/review'}><MdRateReview /> Add Review</NavLink></li>
                                 <li><NavLink to={'/dashboard/booking'}><BiCalendarEvent /> My Booking</NavLink></li>
+                                <li><NavLink to={'/dashboard/paymentHistory'}><FaHistory /> Payment History</NavLink></li>
                                 <div className="divider"></div>
                                 <li><NavLink to={'/'}><FaHome />Home</NavLink></li>
-                                <li><NavLink to={'/order'}><RiAddBoxFill />Order Food</NavLink></li>
+                                <li><NavLink to={'/order/salad'}><RiAddBoxFill />Order Food</NavLink></li>
                                 <li><NavLink to={'/contact'}><BiPhone />Contact</NavLink></li>
                             </>
                     }

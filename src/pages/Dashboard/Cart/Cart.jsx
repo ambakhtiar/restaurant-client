@@ -2,6 +2,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 
 const Cart = () => {
@@ -27,7 +28,9 @@ const Cart = () => {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
-                                icon: "success"
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1000
                             });
                         }
                     })
@@ -43,7 +46,11 @@ const Cart = () => {
             <div className="flex justify-between my-4">
                 <h2 className="text-3xl">Food: {cart.length}</h2>
                 <h2 className="text-3xl">$ {totalPrice}</h2>
-                <button className="btn btn-outline bg-yellow-300">Pay</button>
+                {
+                    cart.length ?
+                        <Link to={"/dashboard/payment"}><button className="btn btn-outline bg-yellow-300">Pay</button></Link>
+                        : <button disabled className="btn btn-outline bg-yellow-300">Pay</button>
+                }
             </div>
 
             <div className="overflow-x-auto">
