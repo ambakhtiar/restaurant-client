@@ -87,7 +87,7 @@ const AdminHome = () => {
                         <div className="stat-figure text-secondary">
                             <FaCartShopping className="text-3xl" />
                         </div>
-                        <div className="stat-title">New Users</div>
+                        <div className="stat-title">Order Count</div>
                         <div className="stat-value">{states.orderCount}</div>
                         <div className="stat-desc">↗︎ 400 (22%)</div>
                     </div>
